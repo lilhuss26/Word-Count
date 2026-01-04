@@ -1,5 +1,9 @@
 import re
 
+mapped_data = []
+grouped_data = {}
+reduced_data = []
+
 def mapper(line):
     for word in line.strip().split():
         yield (word, 1)
@@ -13,15 +17,12 @@ with open("Football Analytics With Python & R Learning Data Science Through the 
 for i in range(len(data)):
     data[i] = re.sub(r"[^\w\s]+|\s+", " ", data[i].strip())
 
-mapped_data = []
 for line in data:
   mapped_data.extend(mapper(line))
 
-grouped_data = {}
 for word, count in mapped_data:
   grouped_data.setdefault(word, []).append(count)
 
-reduced_data = []
 for word, values in grouped_data.items():
   reduced_data.append(reducer(word, values))
 
